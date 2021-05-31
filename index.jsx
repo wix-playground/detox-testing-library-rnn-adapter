@@ -1,5 +1,5 @@
-import React from 'react';
-import { fireEvent, render, within } from '@testing-library/react-native';
+const React = require('react');
+const { fireEvent, render, within } = require('@testing-library/react-native');
 const { ApplicationMock } = require('react-native-navigation');
 
 const isDetox = () => !!process.env.DETOX_START_TIMESTAMP;
