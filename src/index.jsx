@@ -5,10 +5,6 @@ const {
   VISIBLE_OVERLAY_TEST_ID,
 } = require("react-native-navigation");
 
-const { fireEvent, render, within } = require("@testing-library/react-native");
-const { ApplicationMock } = require("react-native-navigation");
-App = render(<ApplicationMock entryPoint={entrypoint} />);
-
 const isDetox = () => !!process.env.DETOX_START_TIMESTAMP;
 
 const extendDetox = () => {
