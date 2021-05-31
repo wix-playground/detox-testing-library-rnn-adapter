@@ -1,10 +1,17 @@
-const React = require('react');
-const { fireEvent, render, within } = require('@testing-library/react-native');
-const { VISIBLE_SCREEN_TEST_ID, VISIBLE_OVERLAY_TEST_ID } = require('react-native-navigation');
+const React = require("react");
+const { fireEvent, render, within } = require("@testing-library/react-native");
+const {
+  VISIBLE_SCREEN_TEST_ID,
+  VISIBLE_OVERLAY_TEST_ID,
+} = require("react-native-navigation");
+
+const { fireEvent, render, within } = require("@testing-library/react-native");
+const { ApplicationMock } = require("react-native-navigation");
+App = render(<ApplicationMock entryPoint={entrypoint} />);
 
 const isDetox = () => !!process.env.DETOX_START_TIMESTAMP;
 
-const mockJest = () => {
+const extendDetox = () => {
   it.e2e = (name, fn) => {
     if (isDetox()) {
       it(name, fn);
@@ -21,12 +28,12 @@ const mockJest = () => {
 };
 
 const mockDetox = (entrypoint) => {
-  mockJest();
+  extendDetox();
   let App;
 
   global.device = {
     launchApp: () => {
-      const { ApplicationMock } = require('react-native-navigation');
+      const { ApplicationMock } = require("react-native-navigation");
       App = render(<ApplicationMock entryPoint={entrypoint} />);
       return App;
     },
@@ -56,7 +63,9 @@ function elementById(id, App) {
   let element = null;
   if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByTestId(id)) {
     element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByTestId(id);
-  } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByTestId(id)) {
+  } else if (
+    within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByTestId(id)
+  ) {
     element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByTestId(id);
   }
 
@@ -72,7 +81,9 @@ function elementByLabel(label, App) {
   let element = null;
   if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByText(label)) {
     element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByText(label);
-  } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByText(label)) {
+  } else if (
+    within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByText(label)
+  ) {
     element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByText(label);
   }
 
@@ -84,4 +95,4 @@ function elementByLabel(label, App) {
   return element;
 }
 
-export { mockDetox };
+export { mockDetox, extendDetox };
