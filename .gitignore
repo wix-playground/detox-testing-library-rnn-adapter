@@ -1,0 +1,14 @@
+package-lock.json
+yarn.lock
+.history/
+
+############
+# Node
+############
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Optional npm cache directory
+.npm

@@ -1,0 +1,23 @@
+{
+  "name": "detox-testing-library-rnn-adapter",
+  "version": "1.0.0",
+  "description": "",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://github.com/wix-playground/detox-testing-library-rnn-adapter",
+  "readme": "https://github.com/wix-playground/detox-testing-library-rnn-adapter#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wix-playground/detox-testing-library-rnn-adapter.git"
+  },
+  "main": "index.js",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-navigation": "*",
+    "@testing-library/react-native": "*",
+    "detox": "*"
+  }
+}
