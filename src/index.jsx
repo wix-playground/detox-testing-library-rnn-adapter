@@ -1,6 +1,6 @@
 const React = require('react');
 const { fireEvent, render, within } = require('@testing-library/react-native');
-const { ApplicationMock } = require('react-native-navigation');
+const { VISIBLE_SCREEN_TEST_ID, VISIBLE_OVERLAY_TEST_ID } = require('react-native-navigation');
 
 const isDetox = () => !!process.env.DETOX_START_TIMESTAMP;
 
@@ -26,6 +26,7 @@ const mockDetox = (entrypoint) => {
 
   global.device = {
     launchApp: () => {
+      const { ApplicationMock } = require('react-native-navigation');
       App = render(<ApplicationMock entryPoint={entrypoint} />);
       return App;
     },
@@ -53,10 +54,10 @@ const mockDetox = (entrypoint) => {
 
 function elementById(id, App) {
   let element = null;
-  if (within(App.getByTestId(ApplicationMock.VISIBLE_SCREEN_TEST_ID)).queryByTestId(id)) {
-    element = within(App.getByTestId(ApplicationMock.VISIBLE_SCREEN_TEST_ID)).getByTestId(id);
-  } else if (within(App.getByTestId(ApplicationMock.VISIBLE_OVERLAY_TEST_ID)).queryByTestId(id)) {
-    element = within(App.getByTestId(ApplicationMock.VISIBLE_OVERLAY_TEST_ID)).getByTestId(id);
+  if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByTestId(id)) {
+    element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByTestId(id);
+  } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByTestId(id)) {
+    element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByTestId(id);
   }
 
   if (element)
@@ -69,10 +70,10 @@ function elementById(id, App) {
 
 function elementByLabel(label, App) {
   let element = null;
-  if (within(App.getByTestId(ApplicationMock.VISIBLE_SCREEN_TEST_ID)).queryByText(label)) {
-    element = within(App.getByTestId(ApplicationMock.VISIBLE_SCREEN_TEST_ID)).getByText(label);
-  } else if (within(App.getByTestId(ApplicationMock.VISIBLE_OVERLAY_TEST_ID)).queryByText(label)) {
-    element = within(App.getByTestId(ApplicationMock.VISIBLE_OVERLAY_TEST_ID)).getByText(label);
+  if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByText(label)) {
+    element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByText(label);
+  } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByText(label)) {
+    element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByText(label);
   }
 
   if (element)

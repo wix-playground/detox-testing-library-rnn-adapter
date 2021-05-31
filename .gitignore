@@ -4,6 +4,8 @@ yarn.lock
 
 ############
 # Node
+node_modules
+
 ############
 # Logs
 logs
@@ -12,3 +14,6 @@ npm-debug.log*
 
 # Optional npm cache directory
 .npm
+
+# Compiled babel
+lib
