@@ -25,7 +25,7 @@ const mockDetox = (entrypoint) => {
 
   global.device = {
     launchApp: () => {
-      const { ApplicationMock } = require("react-native-navigation");
+      const { ApplicationMock } = require("react-native-navigation/Mock");
       App = render(<ApplicationMock entryPoint={entrypoint} />);
       return App;
     },
@@ -55,7 +55,7 @@ function elementById(id, App) {
   const {
     VISIBLE_SCREEN_TEST_ID,
     VISIBLE_OVERLAY_TEST_ID,
-  } = require("react-native-navigation");
+  } = require("react-native-navigation/Mock");
   let element = null;
   if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByTestId(id)) {
     element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByTestId(id);
@@ -77,7 +77,7 @@ function elementByLabel(label, App) {
   const {
     VISIBLE_SCREEN_TEST_ID,
     VISIBLE_OVERLAY_TEST_ID,
-  } = require("react-native-navigation");
+  } = require("react-native-navigation/Mock");
   let element = null;
   if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByText(label)) {
     element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByText(label);
