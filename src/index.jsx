@@ -19,12 +19,12 @@ const extendDetox = () => {
 };
 
 const mockDetox = (entrypoint) => {
+  const { fireEvent, render, within } = require('@testing-library/react-native');
   extendDetox();
   let App;
 
   global.device = {
     launchApp: () => {
-      const { render } = require('@testing-library/react-native');
       const { ApplicationMock } = require('react-native-navigation/Mock');
       App = render(<ApplicationMock entryPoint={entrypoint} />);
       return App;
@@ -49,48 +49,46 @@ const mockDetox = (entrypoint) => {
     match.toExist = match.toBeVisible;
     return match;
   };
+
+  function elementById(id, App) {
+    const {
+      VISIBLE_SCREEN_TEST_ID,
+      VISIBLE_OVERLAY_TEST_ID,
+    } = require('react-native-navigation/Mock');
+    let element = null;
+    if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByTestId(id)) {
+      element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByTestId(id);
+    } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByTestId(id)) {
+      element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByTestId(id);
+    }
+
+    if (element)
+      element.tap = async () => {
+        await fireEvent.press(element);
+      };
+
+    return element;
+  }
+
+  function elementByLabel(label, App) {
+    const {
+      VISIBLE_SCREEN_TEST_ID,
+      VISIBLE_OVERLAY_TEST_ID,
+    } = require('react-native-navigation/Mock');
+    let element = null;
+    if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByText(label)) {
+      element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByText(label);
+    } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByText(label)) {
+      element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByText(label);
+    }
+
+    if (element)
+      element.tap = async () => {
+        await fireEvent.press(element);
+      };
+
+    return element;
+  }
 };
-
-function elementById(id, App) {
-  const {
-    VISIBLE_SCREEN_TEST_ID,
-    VISIBLE_OVERLAY_TEST_ID,
-  } = require('react-native-navigation/Mock');
-  const { fireEvent, within } = require('@testing-library/react-native');
-  let element = null;
-  if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByTestId(id)) {
-    element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByTestId(id);
-  } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByTestId(id)) {
-    element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByTestId(id);
-  }
-
-  if (element)
-    element.tap = async () => {
-      await fireEvent.press(element);
-    };
-
-  return element;
-}
-
-function elementByLabel(label, App) {
-  const {
-    VISIBLE_SCREEN_TEST_ID,
-    VISIBLE_OVERLAY_TEST_ID,
-  } = require('react-native-navigation/Mock');
-  const { fireEvent, within } = require('@testing-library/react-native');
-  let element = null;
-  if (within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).queryByText(label)) {
-    element = within(App.getByTestId(VISIBLE_SCREEN_TEST_ID)).getByText(label);
-  } else if (within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).queryByText(label)) {
-    element = within(App.getByTestId(VISIBLE_OVERLAY_TEST_ID)).getByText(label);
-  }
-
-  if (element)
-    element.tap = async () => {
-      await fireEvent.press(element);
-    };
-
-  return element;
-}
 
 export { mockDetox, extendDetox };
