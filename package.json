@@ -1,6 +1,6 @@
 {
   "name": "detox-testing-library-rnn-adapter",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "An adapter for testing react-native-navigation projects using jest and detox api. It allow's converting your existing detox e2e tests to render tests using jest.",
   "license": "MIT",
   "publishConfig": {
