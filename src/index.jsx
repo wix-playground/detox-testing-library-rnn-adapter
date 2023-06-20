@@ -1,6 +1,6 @@
 const React = require('react');
 
-const isDetox = () => !!process.env.DETOX_START_TIMESTAMP;
+const isDetox = () => Boolean(process.env.DETOX_START_TIMESTAMP || process.env.DETOX_CONFIG_SNAPSHOT_PATH);
 
 const extendDetox = () => {
   it.e2e = (name, fn) => {
