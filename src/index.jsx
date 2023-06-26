@@ -34,6 +34,7 @@ const mockDetox = (entrypoint) => {
   global.element = (e) => e;
   global.by = {
     text: (text) => elementByLabel(text, App),
+    label: (text) => elementByLabel(text, App),
     id: (id) => {
       return elementById(id, App);
     },
