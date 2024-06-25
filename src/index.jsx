@@ -46,7 +46,8 @@ const mockDetox = (entrypoint) => {
     match.toBeNotVisible = () => {
       return match.toBe(null);
     };
-    match.toBeVisible = () => match.toBeTruthy();
+    match.toBeVisible = match.toBeTruthy;
+    match.toHaveText = match.toHaveTextContent;
     match.toExist = match.toBeVisible;
     return match;
   };
